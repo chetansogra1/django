@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+    db:
+        image: postgres:14.1
+        container_name: postgres_db
+        volumes:
+          - ./data/db:/var/lib/postgresql/data
+        environment:
+          - POSTGRES_NAME=docker_lab
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=tech  
+    web:
+        build: .
+        image: web_server
+        container_name: django_web
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes:
+          - .:/app
+        ports:
+          - "8000:8000"
+        environment:
+          - POSTGRES_NAME=docker_lab
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=tech
+        depends_on:
+          - db
