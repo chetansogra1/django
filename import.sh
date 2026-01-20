@@ -1,12 +1,18 @@
 #!/bin/bash
-
 set -e
-DB_NAME=${postgres}
-DB_USER=${django_lab}
-DB_USER_PASS=${tech}
-#<<EOF createdb  $DB_NAME;
-#psql -c "CREATE USER $DB_USER WITH PASSWORD '$DB_USER_PASS';"
-#psql -c "grant all privileges on database $DB_NAME to $DB_USER;"
-#echo "Postgres User '$DB_USER' and database '$DB_NAME' created."
-#EOF
-cat docker_lab.sql | docker exec -i postgres_db psql -U postgres -d postgres
+
+DB_NAME="docker_lab"
+DB_USER="postgres"
+DB_USER_PASS="tech"
+
+createdb "$DB_NAME"
+
+psql <<EOF
+CREATE USER $DB_USER WITH PASSWORD '$DB_USER_PASS';
+GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;
+EOF
+
+echo "Postgres User '$DB_USER' and database '$DB_NAME' created."
+
+docker exec -i postgres_db psql -U postgres -d docker_lab < docker_lab.sql
+
