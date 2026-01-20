@@ -54,7 +54,7 @@ jobs:
 
             echo "⬇️ Pulling latest image"
             docker-compose pull web
-
+            docker-compose build
             echo "🛑 Stopping containers"
             docker-compose down
 
