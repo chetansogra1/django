@@ -3,15 +3,15 @@ services:
     db:
         image: postgres:14.1
         container_name: postgres_db
-        volumes:
-          - ./data/db:/var/lib/postgresql/data
         environment:
           - POSTGRES_NAME=docker_lab
           - POSTGRES_USER=postgres
-          - POSTGRES_PASSWORD=tech  
+          - POSTGRES_PASSWORD=tech
+        volumes:
+          - postgres_data:/var/lib/postgresql/data
     web:
         build: .
-        image: web_server
+        image: acstestck.azurecr.io/django-web:latest
         container_name: django_web
         command: python manage.py runserver 0.0.0.0:8000
         volumes:
@@ -24,3 +24,6 @@ services:
           - POSTGRES_PASSWORD=tech
         depends_on:
           - db
+volumes:
+  postgres_data:
+
