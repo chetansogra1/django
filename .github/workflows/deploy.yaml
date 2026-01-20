@@ -53,8 +53,8 @@ jobs:
             cd /home/stage/django
 
             echo "⬇️ Pulling latest image"
-            docker-compose pull web
-            docker-compose build
+            docker-compose pull django_web
+
             echo "🛑 Stopping containers"
             docker-compose down
 
