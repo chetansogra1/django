@@ -50,7 +50,7 @@ jobs:
               --password-stdin
 
             echo "📂 Moving to project directory"
-            cd /home/stage/django
+            cd /home/stage/django || exit 1
 
             echo "⬇️ Pulling latest image"
             docker pull acstestck.azurecr.io/django-web:latest
