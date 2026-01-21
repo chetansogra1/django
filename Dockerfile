@@ -12,4 +12,6 @@ RUN python -m pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "django_lab.wsgi:application"]
+
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
