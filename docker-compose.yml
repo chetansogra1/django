@@ -15,6 +15,13 @@ services:
   web:
     image: acstestck.azurecr.io/django-web:latest
     container_name: django_web
+    command: >
+      sh -c "
+      python manage.py collectstatic --noinput &&
+      gunicorn django_lab.wsgi:application --bind 0.0.0.0:8000
+      "
+    volumes:
+      - static_volume:/app/staticfiles
     restart: always
     ports:
       - "8000:8000"
