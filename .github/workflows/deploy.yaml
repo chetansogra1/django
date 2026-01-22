@@ -25,7 +25,7 @@ jobs:
       # 3️⃣ Build Docker image
       - name: Build Docker image
         run: |
-          docker build \
+          docker build --no-cache \
             -t ${{ secrets.ACR_LOGIN_SERVER }}/django-web:latest .
 
       # 4️⃣ Push image to ACR
